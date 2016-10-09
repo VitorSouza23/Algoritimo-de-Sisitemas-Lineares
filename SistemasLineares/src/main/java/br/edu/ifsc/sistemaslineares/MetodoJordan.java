@@ -7,48 +7,61 @@ package br.edu.ifsc.sistemaslineares;
 
 /**
  *
- * @author Vitor
+ * @author Aluno
  */
-public class PivoteamentoParcial {
-
+public class MetodoJordan {
+    
     private static double matriz[][] = {
-        {2, 3, -1, 5},
+         {2, 3, -1, 5},
         {4, 4, -3, 3},
         {2, -3, 1, -1}
     };
     private static double pivo;
     private static int linhaAtual;
     private static int colunaAtual;
-    private static double mnn[];
+    private static double mnnColuna[];
+    private static double mnnLinha[];
     private static double vetb[];
     private static double vetx[];
     private static double matA[][];
     private static int n = 0;
 
     public static void calcularVetorX() {
+        n = 0;
         pivo = 0;
         linhaAtual = -1;
         colunaAtual = -1;
         mostrarMatriz();
         System.out.println("\n");
         do {
-            n = 0;
+            n++;
             linhaAtual++;
             colunaAtual++;
-            pivoteamentoParcial();
-            mostrarMatriz();
-            System.out.println("\n");
             pivo = matriz[linhaAtual][linhaAtual];
-            mnn = new double[matriz.length - linhaAtual];
-            int contr = 1;
-            for (int x = 0; x < mnn.length; x++) {
-                mnn[x] = matriz[x + linhaAtual][colunaAtual] / pivo;
+            mnnColuna = new double[matriz.length - linhaAtual];
+            mnnLinha = new double[colunaAtual];
+            int contrLinha = 0;
+            int contrColuna = 1;
+            for (int x = 0; x < mnnColuna.length; x++) {
+                mnnColuna[x] = matriz[x + linhaAtual][colunaAtual] / pivo;
+            }
+            for (int x = 0; x < mnnLinha.length; x++) {
+                if(x != linhaAtual){
+                    mnnLinha[x] = matriz[x][colunaAtual] / pivo;
+                }
+                
             }
             for (int l = linhaAtual + 1; l < matriz.length; l++) {
                 for (int c = colunaAtual; c < matriz[l].length; c++) {
-                    matriz[l][c] = matriz[l][c] - (mnn[contr] * matriz[linhaAtual][c]);
+                    matriz[l][c] = matriz[l][c] - (mnnColuna[contrColuna] * matriz[linhaAtual][c]);
                 }
-                contr++;
+                contrColuna++;
+            }
+            for (int l = 0; l < linhaAtual; l++) {
+                for (int c = colunaAtual; c < matriz[l].length; c++) {
+                    matriz[l][c] = matriz[l][c] - (mnnLinha[contrLinha] * matriz[linhaAtual][c]);
+                }
+                contrLinha++;
             }
 
             mostrarTodasAsInformacoes();
@@ -60,9 +73,13 @@ public class PivoteamentoParcial {
     private static void mostrarTodasAsInformacoes() {
         System.out.println("Nº: " + n);
         System.out.println("Pivô: " + pivo);
-
-        for (int x = 0; x < mnn.length; x++) {
-            System.out.println("m[" + x + "][" + colunaAtual + "]: " + mnn[x]);
+        System.out.println("mnnLinha:");
+        for (int x = 0; x < mnnLinha.length; x++) {
+            System.out.println("m[" + colunaAtual + "][" + x + "]: " + mnnLinha[x]);
+        }
+        System.out.println("mnnColuna:");
+        for (int x = 0; x < mnnColuna.length; x++) {
+            System.out.println("m[" + x + "][" + colunaAtual + "]: " + mnnColuna[x]);
         }
 
         System.out.println("Matriz:");
@@ -84,26 +101,6 @@ public class PivoteamentoParcial {
         }
     }
 
-    private static void pivoteamentoParcial() {
-        double maiorEmModulo = 0;
-        int linha = linhaAtual;
-        for (int w = linhaAtual; w < matriz[linhaAtual].length - 1; w++) {
-            if (maiorEmModulo < matriz[w][colunaAtual]) {
-                maiorEmModulo = matriz[w][colunaAtual];
-                linha = w;
-            }
-        }
-        if (linha != linhaAtual) {
-            double aux[] = new double[matriz[linhaAtual].length];
-            for (int a = 0; a < matriz[linhaAtual].length; a++) {
-                aux[a] = matriz[linhaAtual][a];
-                matriz[linhaAtual][a] = matriz[linha][a];
-                matriz[linha][a] = aux[a];
-            }
-        }
-
-    }
-    
     private static void mostrarVetorX() {
         double res = 0.0;
         vetx = new double[matriz.length];

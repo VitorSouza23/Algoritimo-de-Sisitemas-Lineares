@@ -12,6 +12,7 @@ package br.edu.ifsc.sistemaslineares;
 public class Principal {
     public static void main(String[] args) {
         //EliminacaoGaussiana.calcularVetorX();
-        PivoteamentoParcial.calcularVetorX();
+        //PivoteamentoParcial.calcularVetorX();
+        MetodoJordan.calcularVetorX();
     }
 }
