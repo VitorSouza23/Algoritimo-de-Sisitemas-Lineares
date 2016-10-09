@@ -13,6 +13,7 @@ public class Principal {
     public static void main(String[] args) {
         //EliminacaoGaussiana.calcularVetorX();
         //PivoteamentoParcial.calcularVetorX();
-        MetodoJordan.calcularVetorX();
+        //MetodoJordan.calcularVetorX();
+        FatoracaoLU.calcularVetorX();
     }
 }
