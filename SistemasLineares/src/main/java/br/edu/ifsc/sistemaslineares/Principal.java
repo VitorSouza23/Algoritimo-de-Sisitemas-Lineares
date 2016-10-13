@@ -14,6 +14,7 @@ public class Principal {
         //EliminacaoGaussiana.calcularVetorX();
         //PivoteamentoParcial.calcularVetorX();
         //MetodoJordan.calcularVetorX();
-        FatoracaoLU.calcularVetorX();
+        //FatoracaoLU.calcularVetorX();
+        //FatoracaoCholesky.calcularVetorX();
     }
 }
