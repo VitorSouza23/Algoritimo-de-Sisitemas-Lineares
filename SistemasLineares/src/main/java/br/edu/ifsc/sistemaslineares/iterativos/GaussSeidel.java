@@ -22,7 +22,6 @@ public class GaussSeidel {
     };
     
     private static BigDecimal matriz[][];
-    private static BigDecimal pivo;
     private static BigDecimal vetb[];
     private static BigDecimal vetx[];
     private static BigDecimal matA[][];
